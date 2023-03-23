@@ -39,7 +39,6 @@ jobs:
       name: Trigger auto deploy 
       runs-on: ubuntu-latest
       needs: docker-build-publish
-      if: ${{ github.event.workflow_run.conclusion == 'success' }}
       env:
         ORG_NAME: Bahmni
         REPOSITORY_NAME: bahmni-docker
