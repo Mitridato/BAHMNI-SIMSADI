@@ -15,7 +15,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Set env.ARTIFACT_VERSION
         run: |
-          cd bahmni-proxy/
           wget -q https://raw.githubusercontent.com/Bahmni/bahmni-infra-utils/main/setArtifactVersion.sh && chmod +x setArtifactVersion.sh
           ./setArtifactVersion.sh
           rm setArtifactVersion.sh
