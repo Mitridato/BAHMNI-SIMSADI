@@ -17,6 +17,8 @@ COPY resources/internalError.html /usr/local/apache2/htdocs/internalError.html
 COPY resources/style.css /usr/local/apache2/htdocs/style.css
 COPY resources/src.jpeg /usr/local/apache2/htdocs/src.jpeg
 RUN mkdir /var/cache/mod_proxy
+RUN rm -rf /usr/local/apache2/cgi-bin/test-cgi
+RUN rm -rf /usr/local/apache2/cgi-bin/printenv*
 	
 RUN apk add --update openssl && \
     rm -rf /var/cache/apk/*
