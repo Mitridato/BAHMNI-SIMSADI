@@ -21,6 +21,7 @@
 *  _Idealmente establecer alrededor de 40 GB de almacenamiento a la MV y unos 4 GB de memoria RAM_
   
 
+
 *  Una vez lista esta base necesitaremos instalar algunas herramientas:
 *  [Descarga Docker](https://docs.docker.com/engine/install/ubuntu/)
 
