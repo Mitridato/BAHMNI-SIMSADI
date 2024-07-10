@@ -113,6 +113,23 @@
           "numberOfVisits": 4
         }
       },
+      
+        "Sendorders": {
+            "type": "custom",
+            "config": {
+                "title": "Envio de Documentos",
+                "template": "<birth-certificate></birth-certificate>"
+               }
+            },
+
+
+
+
+
+
+
+
+
       "labResults": {
         "translationKey": "DASHBOARD_TITLE_LAB_RESULTS_KEY",
         "type": "labOrders",
