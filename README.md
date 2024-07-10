@@ -17,4 +17,11 @@
   Para empezar se debe preparar un ambiente de desarrollo, para esto se siguieron estos pasos: 
   
 *  Instalar una máquina virtual (Oracle VM) y en esta cargar la version estable (LTS) de Ubuntu (22.0.4)
-*  [Sitio de descarga de ORACLE VM](https://www.virtualbox.org/wiki/Downloads "Descargar Máquina Virtual") 
+*  [Sitio de descarga de la Máquina Virtual](https://www.virtualbox.org/wiki/Downloads "Descargar Máquina Virtual")
+*  _Idealmente establecer alrededor de 40 GB de almacenamiento a la MV y unos 4 GB de memoria RAM_
+  
+
+*  Una vez lista esta base necesitaremos instalar algunas herramientas:
+*  [Descarga Docker](https://docs.docker.com/engine/install/ubuntu/)
+
+*
