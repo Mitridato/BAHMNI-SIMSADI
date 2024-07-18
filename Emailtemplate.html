@@ -1,0 +1,34 @@
+<link id="labOrderSections" rel="stylesheet" 
+        href="css/app-dashboard-integration.css"/>
+
+<section class="app-dashboard-integration">
+    <h2 class="section-title"><span class="section-border">{{section.title | titleTranslate}}</span>
+    </h2>  
+    
+    <ul style="font-size: 15px;color: #000000">
+        <ul ng if="EnvioOrdenes.length !== 0">
+        <h2>Order Details</h2>
+        <div ng-if="labOrderSections && labOrderSections.length > 0">
+            <h3> Lab Orders</h3>
+            <ul>
+                <li ng-repeat="labOrder in labOrderSections">
+            
+            
+                    Order ID: {{labOrder.id}}, Description: {{labOrder.description}}
+                </li>
+            </ul> 
+        
+        <div ng-if="pacsOrders && pacsOrders.length > 0">
+            <h3>PACS Orders</h3>
+            <ul>
+                <li ng-repeat="pacsOrder in pacsOrders">
+                    Order ID: {{pacsOrder.id}}, Type: {{pacsOrder.type}}
+                </li>
+
+            </ul>
+        </div>
+        
+        <div ng-if="!(labOrderSections && labOrderSections.length > 0) && !(pacsOrders && pacsOrders.length > 0)">
+        
+            <p>No data available.</p>
+        </div>
