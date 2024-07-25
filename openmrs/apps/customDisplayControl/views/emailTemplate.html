@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="EnvioOrdenes">
+<head>
+    <link rel="stylesheet" ng-href="https://localhost/bahmni/components/offline/themes/{{getLocaleCSS()}}.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+    var app = angular.module('EnvioOrdenes', []);
+    app.controller('EnvioOrdenes', function($scope) {
+      $scope.stateChange = function() {
+        // Implement your logic here
+        return false;
+      };
+
+      $scope.section = {
+        title: 'Ordenes'
+      };
+
+      // Sample data
+      $scope.EnvioOrdenes = [{}];
+      $scope.labOrderSections = [
+        { id: 1, description: 'de Laboratorio 1' },
+        { id: 2, description: 'de Laboratorio 2' }
+      ];
+
+      $scope.pacsOrders = [
+        { id: 1, type: 'Radiologico 1' },
+        { id: 2, type: 'Radiologico 2' }
+      ];
+
+      $scope.getLocaleCSS = function() {
+      var defaultCSS = "offline-language-english";
+
+      return defaultCSS;
+      };
+    });
+  </script>
+</head>
+<body ng-controller="EnvioOrdenes">
+  <div ng-show="!stateChange()">
+    
+  </div>
+  <div>
+    <section class="dashboard-section">
+      <h2 class="section-title">
+        <span class="section-border">{{section.title | titleTranslate}}</span>
+      </h2>  
+    
+      <div ng-if="EnvioOrdenes.length !== 0">
+        <h2>Order Details</h2>
+        <div ng-if="labOrderSections && labOrderSections.length > 0">
+          <h3> Lab Orders</h3>
+          <ul>
+            <li ng-repeat="labOrder in labOrderSections">
+              Order ID: {{labOrder.id}}, Description: {{labOrder.description}}
+            </li>
+          </ul> 
+        </div>
+        
+        <div ng-if="pacsOrders && pacsOrders.length > 0">
+          <h3>PACS Orders</h3>
+          <ul>
+            <li ng-repeat="pacsOrder in pacsOrders">
+              Order ID: {{pacsOrder.id}}, Type: {{pacsOrder.type}}
+            </li>
+          </ul>
+        </div>
+
+        <div ng-if="!(labOrderSections && labOrderSections.length > 0) && !(pacsOrders && pacsOrders.length > 0)">
+          <p>No data available.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
