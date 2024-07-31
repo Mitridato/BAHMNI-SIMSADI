@@ -1,5 +1,3 @@
-version: '3.7'
-
 x-default-logging: &default
   {}
 
@@ -29,12 +27,12 @@ services:
     environment:
       TZ: ${TZ}
 
-  bahmni-config:
-    image: 'bahmni/clinic-config:${CONFIG_IMAGE_TAG:?}'
-    volumes:
-      - '${CONFIG_VOLUME:?}:/usr/local/bahmni_config'
-    logging: *log-config
-    restart: ${RESTART_POLICY}
+#  bahmni-config:
+ #   image: 'democonfig'
+  #  volumes:
+   #   - '${CONFIG_VOLUME:?}:/usr/local/bahmni_config'
+    #logging: *log-config
+    #restart: ${RESTART_POLICY}
 
   bahmni-lab:
     profiles: ["lab-lite","emr","bahmni-lite"]
@@ -246,8 +244,8 @@ services:
     profiles: ["emr","bahmni-lite","bahmni-mart"]
     volumes:
       - "${CONFIG_VOLUME:?}:/usr/local/apache2/htdocs/bahmni_config/:ro"
-    #   - "${BAHMNI_APPS_PATH:?}/ui/app/:/usr/local/apache2/htdocs/bahmni"
-    #   - "${BAHMNI_APPS_PATH:?}/ui/node_modules/@bower_components/:/usr/local/apache2/htdocs/bahmni/components"
+      - "${BAHMNI_APPS_PATH:?}/ui/app/:/usr/local/apache2/htdocs/bahmni"
+      - "${BAHMNI_APPS_PATH:?}/ui/node_modules/@bower_components/:/usr/local/apache2/htdocs/bahmni/components"
     logging: *log-config
     restart: ${RESTART_POLICY}
 
@@ -412,3 +410,4 @@ volumes:
   sms-token:
   bahmni-queued-reports:
   reportsdbdata:
+

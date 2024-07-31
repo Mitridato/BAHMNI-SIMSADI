@@ -1,0 +1,3 @@
+[submodule "bahmni-proxy/bahmni-proxy"]
+	path = bahmni-proxy/bahmni-proxy
+	url = https://github.com/Mitridato/BAHMNI-SIMSADI/tree/backup
