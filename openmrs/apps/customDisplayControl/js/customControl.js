@@ -305,7 +305,7 @@ angular.module('BirthCertificate', ['observationsService','appService','spinner'
     .directive('BirthCertificate',['observationsService','appService','spinner',function (observationsService, appService, spinner) {
         var link = function ($scope) {
             var conceptNames = ["HEIGHT"];
-            $scope.contentUrl = appService.configBaseUrl() +"/customDisplayContol/views/birthCertificate.html";
+            $scope.contentUrl = appService.configBaseUrl() +"/home/mitridato/clinic-config/openmrs/apps/customDisplayContol/views/birthCertificate.html";
             spinner.forPromise(observationsService.fetch($scope.patient.uuid, conceptNames, "latest", undefined, $scope.visitUuid, undefined).then(function (response) {
                 $scope.observations = response.data;
             }))
@@ -313,29 +313,115 @@ angular.module('BirthCertificate', ['observationsService','appService','spinner'
         return {
             restrict: 'E',
             templateUrl: "/home/mitridato/clinic-config/openmrs/apps/customDisplayControl/views/birthCertificate.html",
+            // template: '<ng-include src="/home/mitridato/clinic-config/openmrs/apps/customDisplayControl/views/birthCertificate.html"/>',
             link: link
         };
     }]);
+    
+    
+// Define el nuevo módulo
+/*
+angular.module('bahmni.common.displaycontrol.custom', [])
+    .controller('EnvioOrdenes', ['$scope', '$stateParams', '$rootScope', 'labOrderService', 'radiologyOrderService', 
+        function ($scope, $stateParams, $rootScope, labOrderService, radiologyOrderService) {
+            $scope.dashboardConfig = $scope.dashboard.getSectionByType("labOrders").dashboardConfig || {};
+            $scope.dashboardConfig.patientUuid = $stateParams.patientUuid;
+            
+            $scope.dialogData = {
+                "patient": $scope.patient,
+                "expandedViewConfig": $scope.dashboard.getSectionByType("labOrders").expandedViewConfig || {}
+            };
 
-angular.module('EnvioOrdenes', ['orderService','labOrders','pacsOrders'])
-    .controller('EnvioOrdenes',['$scope', '$stateParams', '$rootScope', function ($scope, $rootScope) { 
+            $scope.labOrderSections = [];
+            $scope.pacsOrders = [];
+            $scope.combinedOrders = [];
+
+            function loadLabOrders() {
+                labOrderService.getLabOrdersForPatient($scope.dashboardConfig.patientUuid).then(function(response) {
+                    $scope.labOrderSections = response.data;
+                    updateCombinedOrders();
+                });
+            }
+
+            function loadRadiologyOrders() {
+                radiologyOrderService.getRadiologyOrdersForPatient($scope.dashboardConfig.patientUuid).then(function(response) {
+                    $scope.pacsOrders = response.data;
+                    updateCombinedOrders();
+                });
+            }
+
+            function updateCombinedOrders() {
+                $scope.combinedOrders = [...$scope.labOrderSections, ...$scope.pacsOrders];
+            }
+
+            loadLabOrders();
+            loadRadiologyOrders();
+
+            $scope.isDataPresent = function () {
+                if (($scope.pacsOrders && $scope.pacsOrders.length === 0) || ($scope.labOrderSections && $scope.labOrderSections.length === 0)) {
+                    $scope.$emit("no-data-present-event");
+                    return false;
+                }
+                return true;
+            };
+
+            $scope.downloadOrder = function (visitStartDate, visitUuid) {
+                $rootScope.$broadcast("event:downloadOrderFromDashboard", visitStartDate, visitUuid);
+            };
+
+            $scope.isOtherActiveSection = function (dateString) {
+                return dateString === Bahmni.Clinical.Constants.labOrderSection || dateString === Bahmni.Clinical.Constants.radiologyOrderSection;
+            };
+
+            $scope.shareOrders = function (visitStartDate, visitUuid) {
+                $rootScope.$broadcast("event:shareOrdersViaEmail", visitStartDate, visitUuid);
+            };
+        }
+    ]);
+    */
+// Define the module
+angular.module('bahmni.common.displaycontrol.custom', [])
+
+// Define the controller
+.controller('EnvioOrdenes', ['$scope', '$stateParams', '$rootScope', 'labOrderService', 'radiologyOrderService', 
+    function ($scope, $stateParams, $rootScope, labOrderService, radiologyOrderService) {
         $scope.dashboardConfig = $scope.dashboard.getSectionByType("labOrders").dashboardConfig || {};
         $scope.dashboardConfig.patientUuid = $stateParams.patientUuid;
-
-        $scope.getLocaleCSS = function() {
-            // Logic to determine the correct CSS file based on locale
-            return 'default-theme'; // Example return value
-        };
-
+        
         $scope.dialogData = {
             "patient": $scope.patient,
             "expandedViewConfig": $scope.dashboard.getSectionByType("labOrders").expandedViewConfig || {}
         };
 
+        $scope.labOrderSections = [];
+        $scope.pacsOrders = [];
+        $scope.combinedOrders = [];
+
+        function loadLabOrders() {
+            labOrderService.getLabOrdersForPatient($scope.dashboardConfig.patientUuid).then(function(response) {
+                $scope.labOrderSections = response.data;
+                updateCombinedOrders();
+            });
+        }
+
+        function loadRadiologyOrders() {
+            radiologyOrderService.getRadiologyOrdersForPatient($scope.dashboardConfig.patientUuid).then(function(response) {
+                $scope.pacsOrders = response.data;
+                updateCombinedOrders();
+            });
+        }
+
+        function updateCombinedOrders() {
+            $scope.combinedOrders = [...$scope.labOrderSections, ...$scope.pacsOrders];
+        }
+
+        loadLabOrders();
+        loadRadiologyOrders();
 
         $scope.isDataPresent = function () {
-            if (($scope.pacsOrders && $scope.pacsOrders.length == 0) || ($scope.labOrderSections && $scope.labOrderSections.length == 0)) {
-                return $scope.$emit("no-data-present-event") && false;
+            if (($scope.pacsOrders && $scope.pacsOrders.length === 0) || ($scope.labOrderSections && $scope.labOrderSections.length === 0)) {
+                $scope.$emit("no-data-present-event");
+                return false;
             }
             return true;
         };
@@ -343,22 +429,13 @@ angular.module('EnvioOrdenes', ['orderService','labOrders','pacsOrders'])
         $scope.downloadOrder = function (visitStartDate, visitUuid) {
             $rootScope.$broadcast("event:downloadOrderFromDashboard", visitStartDate, visitUuid);
         };
+
         $scope.isOtherActiveSection = function (dateString) {
             return dateString === Bahmni.Clinical.Constants.labOrderSection || dateString === Bahmni.Clinical.Constants.radiologyOrderSection;
         };
+
         $scope.shareOrders = function (visitStartDate, visitUuid) {
             $rootScope.$broadcast("event:shareOrdersViaEmail", visitStartDate, visitUuid);
         };
-
-        return {
-            templateUrl: "/home/mitridato/clinic-config/openmrs/apps/customDisplayControl/views",
-            scope: {
-                OrderSections: "=",
-                params: "=",
-                pacsOrders: "=",
-                labOrders: "="
-
-            },
-            link: link
-        };
-    }]);
+    }
+]);

@@ -1,6 +1,6 @@
 {
   "homePage": {
-    "header_text": "<b>WELCOME TO<br />BAHMNI EMR FOR CLINICS",
+    "header_text": "<b>BIENVENIDO A<br />BAHMNI UV",
     "logo": "/bahmni/images/bahmniLogoFull.png",
     "title_text": " "
   },
@@ -21,7 +21,7 @@
       "link": "/bahmni/home"
     },
     {
-      "enabled": false,
+      "enabled": true,
       "name": "openelis",
       "title": "Laboratory",
       "logo": "/bahmni/images/lab.png",

@@ -273,48 +273,38 @@
     }
   },
   "EnvioOrdenes": {
-        "label": "Envio de Ordenes",
+    "label": "Envio de Ordenes",
+    "type": "custom",
+    "displayOrder": 2,
+    "sections": {
+      "EnvioOrdenesSection": {
+        "label": "Documentos por favor",
         "type": "custom",
+        "displayOrder": 1,
         "controller": "EnvioOrdenes",
-        "displayType": "Half-page",
-        "displayOrder": 0,
-        "showOnlyInPrint": false,
-        "hideEmptyDisplayControl": false,
-        "dashboardConfig":{
+        "template": "/home/mitridato/clinic-config/openmrs/apps/customDisplayControl/views/emailTemplate.html",
+        "dashboardConfig": {
           "title": "Envio de Documentos",
           "hideResultsColumn": true,
-          "template": "/home/mitridato/clinic-config/openmrs/apps/customDisplayControl/views",
-          "chartConfig": {
-            "sortResultColumnsLatestFirst":true,
-            "groupByPanel":true
+          "showRoute": true,
+          "numberOfVisits": 6,
+          "showOtherActive": true,
+          "showDetailsButton": true
         },
-           "properties": {
-              "orderType": ["Radiology Order" , "Lab Order"],
-              "dashboardConfig": {
-                "conceptNames": [],
-                "showRoute": true,
-                "numberOfVisits": 6,
-                "showOtherActive": true,
-                "showDetailsButton": true
-                }
-              },
-              "expandedViewConfig": {
-                "label": "Envio de Documentos",
-                "showFlowSheet": true,
-                "showListView": true,
-                "showTable": true,
-                "showDrugForm": true,
-                "numberOfVisits": 10,
-                "showOtherActive": true,
-                "showDetailsButton": true
-              },
-            "OrderPrint": {
-              "title": "Bahmni",
-              "header": "Ordenes Médicas",
-              "logo": "../images/bahmniLogo.png"
-            }
-          }
-        },
+        "expandedViewConfig": {
+          "label": "Envio de Documentos",
+          "showFlowSheet": true,
+          "showListView": true,
+          "showTable": true,
+          "showDrugForm": true,
+          "numberOfVisits": 10,
+          "showOtherActive": true,
+          "showDetailsButton": true
+        }
+      }
+    }
+  },
+
 
   "BirthCertificate": {
     "label": "PROBANDO",
@@ -330,7 +320,7 @@
         "displayOrder": 1,
         "config": {
           "title": "Certificado de Nacimiento",          
-          "template": "/customDisplayControl/views/birthcertificate.html"
+          "template": "/home/mitridato/clinic-config/openmrs/apps/customDisplayControl/views/birthcertificate.html"
           }
         }
       }
