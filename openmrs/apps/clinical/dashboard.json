@@ -269,61 +269,26 @@
         },
         "displayOrder": 7,
         "title": "Patient Document"
-      }
-    }
-  },
-  "EnvioOrdenes": {
-    "label": "Envio de Ordenes",
-    "type": "custom",
-    "displayOrder": 2,
-    "sections": {
-      "EnvioOrdenesSection": {
-        "label": "Documentos por favor",
+      },
+      
+      "envioOrdenes": {
+        "translationKey": "Envio de Ordenes",
+        "displayType": "Half-Page",
         "type": "custom",
-        "displayOrder": 1,
-        "controller": "EnvioOrdenes",
-        "template": "/home/mitridato/clinic-config/openmrs/apps/customDisplayControl/views/emailTemplate.html",
-        "dashboardConfig": {
-          "title": "Envio de Documentos",
-          "hideResultsColumn": true,
-          "showRoute": true,
-          "numberOfVisits": 6,
-          "showOtherActive": true,
-          "showDetailsButton": true
-        },
-        "expandedViewConfig": {
-          "label": "Envio de Documentos",
-          "showFlowSheet": true,
-          "showListView": true,
-          "showTable": true,
-          "showDrugForm": true,
-          "numberOfVisits": 10,
-          "showOtherActive": true,
-          "showDetailsButton": true
-        }
-      }
-    }
-  },
+        "displayOrder": 20,
+        "showOnlyInPrint": false,
+        "hideEmptyDisplayControl": false, 
+        "controller": "envioOrdenes",
+        "template": "<envio-ordenes></envio-ordenes>"
 
-
-  "BirthCertificate": {
-    "label": "PROBANDO",
-    "printing": {
-      "title": "Bahmni",
-      "header": "Certificado",
-      "logo": "../images/bahmniLogo.png",
-      "maxRecentlyViewedPatients": 10
-    },
-      "sections": {
-      "Birth Certificate": {
-        "type": "custom",
-        "displayOrder": 1,
-        "config": {
-          "title": "Certificado de Nacimiento",          
-          "template": "/home/mitridato/clinic-config/openmrs/apps/customDisplayControl/views/birthcertificate.html"
-          }
+            
         }
       }
     }
   }
+  
+
+
+
+  
 
