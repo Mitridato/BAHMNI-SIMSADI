@@ -1,81 +1,10 @@
 'use strict';
-/*
-angular.module('bahmni.common.displaycontrol.custom')
-    .directive('envioOrdenes', ['$scope', '$stateParams', '$rootScope', '$http', 'appService',
-        function ($scope, $stateParams, $rootScope, $http, appService) {
-            const orderTypes = {
-                lab: 'labOrders',
-                radiology: 'radiologyOrders'
-            };
 
-            $scope.dashboardConfig = $scope.dashboard.getSectionByType("labOrders").dashboardConfig || {};
-            $scope.dashboardConfig.patientUuid = $stateParams.patientUuid;
-            $scope.contentUrl = appService.baseUrl + "/customDisplayControl/views/envioOrdenes.html";
-            
-            $scope.dialogData = {
-                "patient": $scope.patient,
-                "expandedViewConfig": $scope.dashboard.getSectionByType("labOrders").expandedViewConfig || {}
-            };
-
-            $scope.labOrderSections = [];
-            $scope.radiologyOrders = [];
-            $scope.combinedOrders = [];
-
-            function loadOrders(orderType) {
-                const url = `/openmrs/ws/rest/v1/${orderType}/` + $scope.dashboardConfig.patientUuid;
-                return $http.get(url).then(function(response) {
-                    return response.data;
-                });
-            }
-
-            function loadLabOrders() {
-                loadOrders(orderTypes.lab).then(function(data) {
-                    $scope.labOrderSections = data;
-                    updateCombinedOrders();
-                });
-            }
-
-            function loadRadiologyOrders() {
-                loadOrders(orderTypes.radiology).then(function(data) {
-                    $scope.radiologyOrders = data;
-                    updateCombinedOrders();
-                });
-            }
-
-            function updateCombinedOrders() {
-                $scope.combinedOrders = [...$scope.labOrderSections, ...$scope.radiologyOrders];
-            }
-
-            loadLabOrders();
-            loadRadiologyOrders();
-
-            $scope.isDataPresent = function () {
-                if (($scope.radiologyOrders && $scope.radiologyOrders.length === 0) || ($scope.labOrderSections && $scope.labOrderSections.length === 0)) {
-                    $scope.$emit("no-data-present-event");
-                    return false;
-                }
-                return true;
-            };
-
-            $scope.downloadOrder = function (visitStartDate, visitUuid) {
-                $rootScope.$broadcast("event:downloadOrderFromDashboard", visitStartDate, visitUuid);
-            };
-
-            $scope.isOtherActiveSection = function (dateString) {
-                return dateString === Bahmni.Clinical.Constants.labOrderSection || dateString === Bahmni.Clinical.Constants.radiologyOrderSection;
-            };
-
-            $scope.shareOrders = function (visitStartDate, visitUuid) {
-                $rootScope.$broadcast("event:shareOrdersViaEmail", visitStartDate, visitUuid);
-            };
-        }
-    ]);
-*/
 angular.module('bahmni.common.displaycontrol.custom')
     .directive('envioOrdenes', function() {
-        return {
+        return {     
             restrict: 'E',
-            templateUrl: appService.baseUrl + "/customDisplayControl/views/envioOrdenes.html",
+            templateUrl: appService.baseUrl + "/customDisplayControl/views/envioOrdenes.html",  //referencia template archivo hmtl
             controller: ['$scope', '$stateParams', '$rootScope', '$http', 'appService', 'orderTypes',
                 function ($scope, $stateParams, $rootScope, $http, appService, orderTypes) {
                     $scope.dashboardConfig = $scope.dashboard.getSectionByType("labOrders").dashboardConfig || {};
@@ -86,20 +15,20 @@ angular.module('bahmni.common.displaycontrol.custom')
                         "expandedViewConfig": $scope.dashboard.getSectionByType("labOrders").expandedViewConfig || {}
                     };
 
-                    $scope.labOrderSections = [];
-                    $scope.radiologyOrders = [];
-                    $scope.combinedOrders = [];
+                    $scope.labOrders = [];   //lista que guarda las ordenes de laboratorio
+                    $scope.radiologyOrders = [];    //lista que guarda las ordenes de radiologia
+                    $scope.combinedOrders = [];     //lista que guarda ambos tipos de ordenes
 
-                    function loadOrders(orderType) {
+                    function loadOrders(orderType) {     //función que invoca las ordenes de laboratorio 
                         const url = `/openmrs/ws/rest/v1/${orderType}/` + $scope.dashboardConfig.patientUuid;
                         return $http.get(url).then(function(response) {
                             return response.data;
                         });
                     }
 
-                    function loadLabOrders() {
+                    function loadLabOrders() {   //función que guarda las ordenes en la lista combinada
                         loadOrders(orderTypes.lab).then(function(data) {
-                            $scope.labOrderSections = data;
+                            $scope.labOrders = data;
                             updateCombinedOrders();
                         });
                     }
@@ -107,34 +36,34 @@ angular.module('bahmni.common.displaycontrol.custom')
                     function loadRadiologyOrders() {
                         loadOrders(orderTypes.radiology).then(function(data) {
                             $scope.radiologyOrders = data;
-                            updateCombinedOrders();
+                            updateCombinedOrders();  //se cargan las ordenes en la lista combinada
                         });
                     }
 
-                    function updateCombinedOrders() {
-                        $scope.combinedOrders = [...$scope.labOrderSections, ...$scope.radiologyOrders];
+                    function updateCombinedOrders() {           //se actualiza la lista combinada con ambos tipos de ordenes cargadas en la misma
+                        $scope.combinedOrders = [...$scope.labOrders, ...$scope.radiologyOrders];
                     }
 
                     loadLabOrders();
                     loadRadiologyOrders();
 
-                    $scope.isDataPresent = function () {
-                        if (($scope.radiologyOrders && $scope.radiologyOrders.length === 0) || ($scope.labOrderSections && $scope.labOrderSections.length === 0)) {
+                    $scope.isDataPresent = function () {   //función para dar aviso en caso de que no hayan ordenes de ningun tipo asociadas al paciente
+                        if (($scope.radiologyOrders && $scope.radiologyOrders.length === 0) || ($scope.labOrders && $scope.labOrders.length === 0)) {
                             $scope.$emit("no-data-present-event");
                             return false;
                         }
                         return true;
                     };
 
-                    $scope.downloadOrder = function (visitStartDate, visitUuid) {
+                    $scope.downloadOrder = function (visitStartDate, visitUuid) {   //función de descarga de las ordenes
                         $rootScope.$broadcast("event:downloadOrderFromDashboard", visitStartDate, visitUuid);
                     };
 
-                    $scope.isOtherActiveSection = function (dateString) {
-                        return dateString === Bahmni.Clinical.Constants.labOrderSection || Bahmni.Clinical.Constants.radiologyOrderSection;
+                    $scope.isOtherActiveSection = function (dateString) {   
+                        return dateString === Bahmni.Clinical.Constants.labOrders || Bahmni.Clinical.Constants.radiologyOrders;
                     };
 
-                    $scope.shareOrders = function (visitStartDate, visitUuid) {
+                    $scope.shareOrders = function (visitStartDate, visitUuid) {  //función de envio de las ordenes
                         $rootScope.$broadcast("event:shareOrdersViaEmail", visitStartDate, visitUuid);
                     };
                 }
@@ -144,65 +73,4 @@ angular.module('bahmni.common.displaycontrol.custom')
 
 
         
-    // Define el nuevo módulo
-    /*
-    angular.module('bahmni.common.displaycontrol.custom', [])
-        .controller('EnvioOrdenes', ['$scope', '$stateParams', '$rootScope', 'labOrderService', 'radiologyOrderService', 
-            function ($scope, $stateParams, $rootScope, labOrderService, radiologyOrderService) {
-                $scope.dashboardConfig = $scope.dashboard.getSectionByType("labOrders").dashboardConfig || {};
-                $scope.dashboardConfig.patientUuid = $stateParams.patientUuid;
-                
-                $scope.dialogData = {
-                    "patient": $scope.patient,
-                    "expandedViewConfig": $scope.dashboard.getSectionByType("labOrders").expandedViewConfig || {}
-                };
-
-                $scope.labOrderSections = [];
-                $scope.radiologyOrders = [];
-                $scope.combinedOrders = [];
-
-                function loadLabOrders() {
-                    labOrderService.getLabOrdersForPatient($scope.dashboardConfig.patientUuid).then(function(response) {
-                        $scope.labOrderSections = response.data;
-                        updateCombinedOrders();
-                    });
-                }
-
-                function loadRadiologyOrders() {
-                    radiologyOrderService.getRadiologyOrdersForPatient($scope.dashboardConfig.patientUuid).then(function(response) {
-                        $scope.radiologyOrders = response.data;
-                        updateCombinedOrders();
-                    });
-                }
-
-                function updateCombinedOrders() {
-                    $scope.combinedOrders = [...$scope.labOrderSections, ...$scope.radiologyOrders];
-                }
-
-                loadLabOrders();
-                loadRadiologyOrders();
-
-                $scope.isDataPresent = function () {
-                    if (($scope.radiologyOrders && $scope.radiologyOrders.length === 0) || ($scope.labOrderSections && $scope.labOrderSections.length === 0)) {
-                        $scope.$emit("no-data-present-event");
-                        return false;
-                    }
-                    return true;
-                };
-
-                $scope.downloadOrder = function (visitStartDate, visitUuid) {
-                    $rootScope.$broadcast("event:downloadOrderFromDashboard", visitStartDate, visitUuid);
-                };
-
-                $scope.isOtherActiveSection = function (dateString) {
-                    return dateString === Bahmni.Clinical.Constants.labOrderSection || dateString === Bahmni.Clinical.Constants.radiologyOrderSection;
-                };
-
-                $scope.shareOrders = function (visitStartDate, visitUuid) {
-                    $rootScope.$broadcast("event:shareOrdersViaEmail", visitStartDate, visitUuid);
-                };
-            }
-        ]);
-    
-    // Define the module
-    */
+   
