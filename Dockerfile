@@ -5,8 +5,13 @@ RUN apk add curl
 COPY scripts/get_client_side_logging.sh /tmp/get_client_side_logging.sh
 RUN sh /tmp/get_client_side_logging.sh && rm /tmp/get_client_side_logging.sh
 COPY resources/bahmni-proxy.conf /usr/local/apache2/conf/
+
+# Add global configuration for SSL session cache and include the custom proxy configuration
+RUN echo "ServerName bahmniuv.net" >> /usr/local/apache2/conf/httpd.conf
+RUN echo "Include conf/extra/httpd-ssl.conf" >> /usr/local/apache2/conf/httpd.conf
 RUN echo "Include conf/bahmni-proxy.conf" >> /usr/local/apache2/conf/httpd.conf
 RUN sed -i "s/Options Indexes FollowSymLinks/Options -Indexes +FollowSymLinks/" /usr/local/apache2/conf/httpd.conf
+
 COPY resources/index.html /usr/local/apache2/htdocs/index.html
 COPY resources/systemdate.sh /usr/local/apache2/cgi-bin/systemdate
 COPY resources/bahmni-logo.png /usr/local/apache2/htdocs/bahmni-logo.png
@@ -19,7 +24,7 @@ COPY resources/src.jpeg /usr/local/apache2/htdocs/src.jpeg
 RUN mkdir /var/cache/mod_proxy
 RUN rm -rf /usr/local/apache2/cgi-bin/test-cgi
 RUN rm -rf /usr/local/apache2/cgi-bin/printenv*
-	
+
 RUN apk add --update openssl && \
     rm -rf /var/cache/apk/*
 RUN cd /etc/ &&\
@@ -28,26 +33,26 @@ RUN cd /etc/ &&\
     openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=localhost" -keyout key.pem  -out cert.pem
 
 RUN apk add --no-cache --virtual .build-deps \
-		apr-dev \
-		apr-util-dev \
-		gcc \
-        libc-dev \
-		apache2-dev \
-		apache2-utils \
-		py-pip \
-		tar \
-        python3-dev \
-        libffi-dev \
-		tzdata
+    apr-dev \
+    apr-util-dev \
+    gcc \
+    libc-dev \
+    apache2-dev \
+    apache2-utils \
+    py-pip \
+    tar \
+    python3-dev \
+    libffi-dev \
+    tzdata
 
 RUN python3 -m venv /opt/certbot/ &&\
-        /opt/certbot/bin/pip install certbot &&\
-        ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+    /opt/certbot/bin/pip install certbot &&\
+    ln -s /opt/certbot/bin/certbot /usr/bin/certbot
 
 RUN mkdir -p /var/log/client-side-logs/ &&\
-	touch /var/log/client-side-logs/client-side.log &&\
-	chmod 777 /var/log/client-side-logs/client-side.log &&\
-	ln -s /usr/local/apache2/htdocs/client_side_logging /usr/lib/python3*/site-packages/ 
+    touch /var/log/client-side-logs/client-side.log &&\
+    chmod 777 /var/log/client-side-logs/client-side.log &&\
+    ln -s /usr/local/apache2/htdocs/client_side_logging /usr/lib/python3*/site-packages/
 
 RUN pip install Flask pyyaml==6.0.1 mod_wsgi --break-system-packages
 
