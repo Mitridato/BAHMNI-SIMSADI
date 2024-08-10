@@ -25,7 +25,7 @@
 *  Una vez lista esta base necesitaremos instalar algunas herramientas:
 *  [Descarga Docker](https://docs.docker.com/engine/install/ubuntu/)
 
-## 2.2 Establecer repositorio apt de Docker
+### 2.2 Establecer repositorio apt de Docker
 ```
 # Añadir llave gpg (certificado) oficial:
 sudo apt-get update
@@ -42,7 +42,7 @@ echo \
 sudo apt-get update
 ```
 
-## 2.3 Instalar los paquetes de Docker
+### 2.3 Instalar los paquetes de Docker
 ```
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
@@ -52,7 +52,7 @@ sudo docker run hello-world
 docker --v
 ```
 
-#  2.4 Instalar docker compose
+###  2.4 Instalar docker compose
 ```
 sudo apt-get update
 sudo apt-get install docker-compose-plugin
