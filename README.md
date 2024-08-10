@@ -25,4 +25,38 @@
 *  Una vez lista esta base necesitaremos instalar algunas herramientas:
 *  [Descarga Docker](https://docs.docker.com/engine/install/ubuntu/)
 
-*
+## 2.2 Establecer repositorio apt de Docker
+```
+# Añadir llave gpg (certificado) oficial:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
+
+## 2.3 Instalar los paquetes de Docker
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# La documentación sugiere verificar que la instalación de Docker Engine hay sido exitosa ejecutando el siguiente comando:
+sudo docker run hello-world
+# ó
+docker --v
+```
+
+#  2.4 Instalar docker compose
+```
+sudo apt-get update
+sudo apt-get install docker-compose-plugin
+# Para revisar que se instaló correctamente y la versión que se instaló se puede usar el comando:
+docker compose version
+
+```
