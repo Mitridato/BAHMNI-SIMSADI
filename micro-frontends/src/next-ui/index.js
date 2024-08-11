@@ -3,7 +3,7 @@ import { PatientAlergiesControl } from "./Containers/patientAlergies/PatientAler
 import { FormDisplayControl } from "./Containers/formDisplayControl/FormDisplayControl";
 import { ProviderNotifications } from "./Containers/providerNotifications/ProviderNotifications";
 import { OtNotesSavePopup, OtNotesDeletePopup } from "./Containers/otNotes/OtNotes";
-
+import EnvioOrdenes from "./Containers/emailSendOrders/EnvioOrdenes";
 const MODULE_NAME = "bahmni.mfe.nextUi";
 
 angular.module(MODULE_NAME, []);
@@ -36,4 +36,9 @@ builder.createComponentWithTranslationForwarding(
 builder.createComponentWithTranslationForwarding(
     "OtNotesDeletePopup",
     OtNotesDeletePopup
+);
+
+builder.createComponentWithTranslationForwarding(
+  "EnvioOrdenes",
+  EnvioOrdenes
 );

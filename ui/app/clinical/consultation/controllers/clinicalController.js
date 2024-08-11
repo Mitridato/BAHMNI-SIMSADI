@@ -66,6 +66,11 @@ angular.module('bahmni.clinical').controller('ClinicalController',
                         }
                     });
                 }
+                console.log("Locale CSS:", localeCSS);
+                console.log("Current User:", currentUser);
+                console.log("User Properties:", currentUser ? currentUser.userProperties : "No currentUser");
+                console.log("Locales:", locales);
+
                 return localeCSS;
             };
         }]);

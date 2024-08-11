@@ -6,6 +6,7 @@ const packageJson = require("./package.json");
 const dependencies = packageJson.dependencies;
 
 module.exports = {
+  mode: 'development',
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
     alias: {
