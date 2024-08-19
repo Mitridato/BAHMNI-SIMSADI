@@ -20,8 +20,13 @@
 *  [Sitio de descarga de la Máquina Virtual](https://www.virtualbox.org/wiki/Downloads "Descargar Máquina Virtual")
 *  _Idealmente establecer alrededor de 40 GB de almacenamiento a la MV y unos 4 GB de memoria RAM_
   
-
-
+### 2.1 Instalar tomcat
+Para esto, primero se actualizan la lista de paquetes de software disponibles en los repositorios oficiales. Luego, se instala Java Runtime y el kit de desarrollo de Java. Finalmente se instala tomcat. 
+```
+sudo apt-get update
+sudo apt-get install openjdk-11-jre-headless
+sudo apt install tomcat9 tomcat9-admin
+```
 *  Una vez lista esta base necesitaremos instalar algunas herramientas:
 *  [Descarga Docker](https://docs.docker.com/engine/install/ubuntu/)
 
@@ -34,7 +39,7 @@ sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-# Add the repository to Apt sources:
+# Añadir el repositorio a las fuentes Apt:
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
@@ -56,7 +61,18 @@ docker --v
 ```
 sudo apt-get update
 sudo apt-get install docker-compose-plugin
-# Para revisar que se instaló correctamente y la versión que se instaló se puede usar el comando:
+# Para revisar que se instaló correctamente y la versión que quedó en el entorno se puede usar el comando:
 docker compose version
+```
 
+----
+Con estos pasos listos se puede clonar el repositorio en la MV, y una vez dentro del directorio clonado dar paso a construir la imagen con los comandos: 
+----
+
+```
+docker compose build
+docker compose up -d
+
+# Para revisar el estado de los contenedores se utiliza
+docker ps
 ```
