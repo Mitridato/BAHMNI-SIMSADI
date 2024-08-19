@@ -66,7 +66,7 @@ docker compose version
 ```
 
 ----
-Con estos pasos listos se puede clonar el repositorio en la MV, y una vez dentro del directorio clonado dar paso a construir la imagen con los comandos: 
+Con estos pasos listos se puede clonar el repositorio en la MV, y una vez dentro del directorio clonado, en este caso dentro de /bahmni-lite, dar paso a construir la imagen con los comandos: 
 ----
 
 ```
