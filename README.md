@@ -76,3 +76,13 @@ docker compose up -d
 # Para revisar el estado de los contenedores se utiliza
 docker ps
 ```
+----
+
+# 3. INDICE
+----
+Este repositorio esta dividido en varias ramas con sus respectivos archivos 'README.md' detallando su contenido : 
+* En la rama 'back-up' se encuentran los archivos principales para ejecutar las imágenes de Bahmni LITE
+* En la rama 'clinic-config' se encuentra el código con el que se intentó añadir el componente de envio de ordenes escrito en Angular JS.
+* en la rama 'bahmniapps' están contenidos los archivos para añadir el componente escrito en React. Dentro de este se encuentra un "traductor" para conectar lo estructurado en React con el resto del sistema escrito en Angular JS.
+* en la rama 'proxy-droplet' se encuentran los archivos que se configuraron dentro del servidor de DigitalOcean para conectarse de manera remota al sistema.
+ 
