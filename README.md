@@ -1,30 +1,26 @@
 # Bahmni Apps
 
-[![Build Status](https://travis-ci.org/Bahmni/openmrs-module-bahmniapps.svg?branch=master)](https://travis-ci.org/Bahmni/openmrs-module-bahmniapps)
+
 
 [![Build and Publish](https://github.com/Bahmni/openmrs-module-bahmniapps/actions/workflows/build_publish.yml/badge.svg)](https://github.com/Bahmni/openmrs-module-bahmniapps/actions/workflows/build_publish.yml)
 
-1. This repository contains most of the frontend code for the **Bahmni EMR**. It is written in **AngularJS** with
+1. Este repositorio contiene la mayoría del código front-end para el Registro Médico Electrónico (RME) de Bahmni. El cual está escrito en **AngularJS**.
    only the Form viewer part utilising _React_.
-2. See the sub-folder: `ui/app/` to understand which all modules of the EMR UI are contained in this codebase.
-3. Regarding the decision of migrating away from AngularJS and instead use React, please read this
-   blog writeup: [Bahmni EMR - 1 M lines of code](https://medium.com/bahmni-blog/bahmni-emr-1million-lines-of-open-source-code-87e610e9a4ec)
-4. This code needs help in migrating to React. If you are interested in helping, please ping the
-   Bahmni team on Slack (`#community` channel).
-5. All Epics, Stories, Bugs, etc are tracked in [JIRA: Volunteer Board](https://bahmni.atlassian.net/secure/RapidBoard.jspa?rapidView=25&projectKey=BAH&quickFilter=66).
-6. To Run Bahmni locally you should use Docker option of Bahmni or Vagrant option. Docker is recommended.
+2. Ver la subcarpeta: `ui/app/` para entender cual de todos los modulos de la interfaz de usuario del RME están dentro del código base.
+3. El sistema se encuentra en medio de una migración desde AngularJS a React. 
+4. All Epics, Stories, Bugs, etc are tracked in [JIRA: Volunteer Board](https://bahmni.atlassian.net/secure/RapidBoard.jspa?rapidView=25&projectKey=BAH&quickFilter=66).
 
 # Build
 
 ### Notes
-1. This build requires Node, npm, yarn, grunt and compass (ruby).
+1. Se requiere en el sistema las siguientes herramientas: Node, npm, yarn, grunt and compass (ruby).
 2. You can see the [Github Action Build](https://github.com/Bahmni/openmrs-module-bahmniapps/actions/workflows/build_publish.yml) to see what commands get executed.
 
-### One time installation:
+### Instalación antes de iniciar:
 
-These steps need to performed ONLY the FIRST TIME you set up this code.
+Se necesita realizar estos pasos solo la **primera vez** que se configura este código:
 
-1. Install node/npm (node version: 10.11.0). Preferably use nvm, so that you have control over which project uses which version of node. See:
+1. Instalar node/npm (versión: 10.11.0). De preferencia usar nvm, so that you have control over which project uses which version of node. See:
    - [how to install Node using nvm](https://github.com/nvm-sh/nvm).
    - [how to install NodeJS on mac](https://www.newline.co/@Adele/how-to-install-nodejs-and-npm-on-macos--22782681).
 2. Install Yarn: `npm install -g yarn`
