@@ -19,21 +19,21 @@ angular.module('bahmni.common.displaycontrol.custom')
                     $scope.radiologyOrders = [];    //lista que guarda las ordenes de radiologia
                     $scope.combinedOrders = [];     //lista que guarda ambos tipos de ordenes
 
-                    function loadOrders(orderType) {     //función que invoca las ordenes de laboratorio 
+                    function loadOrders(orderType) {     
                         const url = `/openmrs/ws/rest/v1/${orderType}/` + $scope.dashboardConfig.patientUuid;
                         return $http.get(url).then(function(response) {
                             return response.data;
                         });
                     }
 
-                    function loadLabOrders() {   //función que guarda las ordenes en la lista combinada
+                    function loadLabOrders() {   //función que invoca las ordenes de laboratorio 
                         loadOrders(orderTypes.lab).then(function(data) {
                             $scope.labOrders = data;
                             updateCombinedOrders();
                         });
                     }
 
-                    function loadRadiologyOrders() {
+                    function loadRadiologyOrders() {   //función que invoca las ordenes de radiología 
                         loadOrders(orderTypes.radiology).then(function(data) {
                             $scope.radiologyOrders = data;
                             updateCombinedOrders();  //se cargan las ordenes en la lista combinada
